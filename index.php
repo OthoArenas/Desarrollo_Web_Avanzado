@@ -8,11 +8,13 @@
     <meta name="description" content="Práctica Desarrollo Web Avanzado">
     <meta name="author" content="Othoniel E. Salazar Arenas">
     <title>Signin Template for Bootstrap</title>
-    <!-- Bootstrap -->
+    <!-- Carga de CSS para Bootstrap -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-    <!-- Custom styles -->
+    <!-- Carga de estilos personalizados -->
     <link href="css/style.css" rel="stylesheet">
 </head>
+
+<!-- Sección de inicio de sesión -->
 
 <body class="text-center">
     <div class="container">
@@ -29,12 +31,14 @@
         <p style="font-size: 13px;">¿Aún no tienes cuenta?</p>
         <button class="btn btn-success text-uppercase mb-4" type="button" style="background-color: #26a69a; font-size: 16;" name="register-btn" data-html="false" data-toggle="modal" data-target="#register-modal">Registrarse</button>
         <div class="row">
+            <!-- Footer -->
             <footer class="text-center ml-4" style="font-size: 12px;">
                 <p class="mt-5 mb-3 text-muted">© 2020&nbsp;Othoniel E. Salazar Arenas</p>
                 <p class="mt-1 mb-3 text-muted">Computación en el Servidor Web</p>
             </footer>
         </div>
     </div>
+    <!-- Sección para modal de registro -->
     <div class="modal fade pg-show-modal" id="register-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -73,11 +77,13 @@
             </div>
         </div>
     </div>
+    <!-- Script para acción de modales en pantalla -->
     <script>
         $(function() {
             $('[data-toggle="popover"]').popover();
         })
     </script>
+    <!-- Carga de archivos js de Bootstrap -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/popper.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
