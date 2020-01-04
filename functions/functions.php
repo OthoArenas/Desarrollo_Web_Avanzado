@@ -126,7 +126,7 @@ if (isset($_POST['register-submit'])) {
             $warning .= $error;
         }
         $warning = sha1($warning);
-        header("Location: ../index.php?warning=$warning"); 
+        header("Location: ../register.php?warning=$warning"); 
             
     }
     if (isset($messages)) {
