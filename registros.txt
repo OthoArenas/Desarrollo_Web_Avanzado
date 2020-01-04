@@ -1,2 +1,0 @@
-04/01/2020 1:57pm El Archivo registros.txt se ha creado correctamente.
-admin,othosalazar@gmail.com,7af2d10b73ab7cd8f603937f7697cb5fe432c7ff,04/01/2020 2:08pm
