@@ -37,8 +37,12 @@ if (isset($_POST['login-submit'])) {
                 header("location: ../home.php");
             } else if ($count == 0) {
                 $errors[0] = 'El correo electrónico o nombre de usuario ingresados no se encuentran registrados. Por favor, diríjase a la Sección "Registrarse"';
+                $warning = sha1($errors[0]);
+                header("location:../index.php?warning=$warning");
             } else {
                 $errors[0] = "Correo Electrónico / Contraseña inválidos. Intente nuevamente.";
+                $warning = sha1($errors[0]);
+                header("location:../index.php?warning=$warning");
             }
         }
     }
@@ -52,25 +56,15 @@ if (isset($_POST['login-submit'])) {
             /* Ciclo Foreach */
             foreach ($errors as $error) {
                 echo $error;
+                $warning .= $error;
             }
+            $warning = sha1($warning);
+            header("location:../index.php?warning=$warning"); 
             ?>
         </div>
     <?php
     }
-    if (isset($messages)) {
-
-    ?>
-        <div class="alert alert-success" role="alert">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>¡Bien hecho!</strong>
-            <?php
-            foreach ($messages as $message) {
-                echo $message;
-            }
-            ?>
-        </div>
-    <?php
-    }
+    
 }
 
 /* Registro de usuario */
@@ -111,17 +105,6 @@ if (isset($_POST['register-submit'])) {
         $password = strip_tags($_POST['password'], ENT_QUOTES);
         $encriptedPassword = sha1($password);
         $created_at = date("d/m/Y g:ia");
-        $active = 0;
-
-        $token = 'qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM0123456789!$/()*';
-        $token .= $email . time();
-        /* Ciclo For para generar número aleatorios para el Token */
-        for ($i=0; $i < 2; $i++) { 
-            $token.=rand(0,9);
-        }
-        $token = str_shuffle($token);
-        /* Función substr para devolver una subcadena */
-        $token = substr($token, 0, 10);
 
         $fileName = "../registros.txt";
         $loop = 0;
@@ -137,27 +120,13 @@ if (isset($_POST['register-submit'])) {
             }
         }
 
-        $registerData = "$username,$email,$encriptedPassword,$created_at,$token,$active";
+        $registerData = "$username,$email,$encriptedPassword,$created_at";
 
         if (file_exists($fileName) && $registered != true) {
             if ($archivo = fopen($fileName, "a")) {
                 fwrite($archivo, $registerData . "\n");
                 fclose($archivo);
-                $messages[] = "El usuario ha sido registrado exitosamente. <br> Un correo de verificación será enviado al correo: <strong>$email</strong>";
-                $activationUrl = "<a href='https://test.dsignstudio.com.mx/confirmation.php?email=$email&token=$token'>Haz Click</a>";
-                $to = $email;
-                $subject = "Código de Activación de su cuenta";
-                $message = "<p>Bienvenid@ $username.</p>";
-                $message .= "<p>A continuación se muestra un link para la Activación de tu cuenta. </p></br>";
-                $message .= $activationUrl;
-
-                $headers = "From: Support <support@support.com>\r\n";
-                $headers .= "Reply-To: support@support.com\r\n";
-                $headers .= "Content-type: text/html\r\n";
-
-                mail($to, $subject, $message, $headers);
-
-                header("location: ../index.php");
+                $messages[] = "El usuario ha sido registrado exitosamente.";
             }
         }
     }
@@ -168,9 +137,12 @@ if (isset($_POST['register-submit'])) {
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>¡Error!</strong>
             <?php
-            foreach ($errors as $error) {
-                echo $error;
-            }
+                foreach ($errors as $error) {
+                    echo $error;
+                    $warning .= $error;
+                }
+                $warning = sha1($warning);
+                header("location:../index.php?warning=$warning"); 
             ?>
         </div>
     <?php
@@ -184,7 +156,10 @@ if (isset($_POST['register-submit'])) {
             <?php
             foreach ($messages as $message) {
                 echo $message;
+                $success .= $message;
             }
+            $success = sha1($success);
+            header("location:../index.php?success=$success"); 
             ?>
         </div>
 <?php
@@ -210,6 +185,28 @@ function createFile(){
             fwrite($archivo, date("d/m/Y g:ia") . " " . $mensaje . "\n");
             fclose($archivo);
         }
+    }
+}
+
+/* Función para alertar al usuario sobre validaciones y éxito en el registro */
+function textAlert(){
+    if (isset($_GET['warning']) && $_GET['warning'] == "3d5f4deab95d598c8a2fc23e7ee72d5b8bac451a") {
+        echo '<div class="mb-4 bg-warning text-light rounded-lg p-3 " style="font-size: 14px;
+                    "><strong>¡Advertencia!</strong> El correo electrónico o nombre de usuario ingresados no se encuentran registrados. Por favor, diríjase a la Sección "Registrarse"</div>';
+    } else if (isset($_GET['warning']) && $_GET['warning'] == "9d3ffa0001e5244e6ae0c1fb92adb020d7e0da38") {
+        echo '<div class="mb-4 bg-danger text-light rounded-lg p-3 " style="font-size: 14px;
+                    "><strong>¡Error!</strong> Correo Electrónico / Contraseña inválidos. Intente nuevamente.</div>';
+    } else if (isset($_GET['warning']) && $_GET['warning'] == "b165432c2ac41d7cc14b81c42370a889e0f4dace") {
+        echo '<div class="mb-4 bg-danger text-light rounded-lg p-3 " style="font-size: 14px;"><strong>¡Error!</strong> Favor de verificar que se cumplan los siguientes campos:<li>Las contraseñas no coinciden</li></div>';
+    } else if (isset($_GET['warning']) && $_GET['warning'] == "dfbda2363956ab6169ca1df5374c076b03a80c66") {
+        echo '<div class="mb-4 bg-danger text-light rounded-lg p-3 " style="font-size: 14px;"><strong>¡Error!</strong><li>El nombre de usuario o correo electrónico ingresados, ya se encuentra registrado.</li></div>';
+    } else if (
+        isset($_GET['warning']) && $_GET['warning'] == "69232514f27a8cb3ac9928d84ea06b375e641846" || $_GET['warning'] == "95347e1a2095a019de52b313f686422f443af8ba" || $_GET['warning'] == "82d025de0b64e0f52d602d48df4821b6b6b11042" || $_GET['warning'] == "e0ae0f981eb11bb38c73042780f53797a7f854aa" || $_GET['warning'] == "75f9954faccb3488a02c36a7cbdfb5c11a2c631b"
+    ) {
+        echo '<div class="mb-4 bg-danger text-light rounded-lg p-3 " style="font-size: 14px;"><strong>¡Error!</strong><li>El password debe tener al menos 6 caracteres.</li><li>El password no puede tener más de 16 caracteres.</li><li>El password debe tener al menos una letra minúscula.</li><li>El password debe tener al menos una letra mayúscula.</li><li>El password debe tener al menos un número.</li></div>';
+    } else if (isset($_GET['success']) && $_GET['success'] == "b866736afa95e3a93bbcf58292bcc5f14892c23e") {
+        echo '<div class="mb-4 bg-success text-light rounded-lg p-3 " style="font-size: 14px;
+                    "><strong>¡Bien hecho!</strong> El usuario ha sido registrado exitosamente. Ya puede iniciar sesión.</div>';
     }
 }
 ?>
