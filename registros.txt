@@ -1,5 +1,2 @@
-04/01/2020 10:36am El Archivo registros.txt se ha creado correctamente.
-admin,othosalazar@gmail.com,7af2d10b73ab7cd8f603937f7697cb5fe432c7ff,04/01/2020 10:36am
-OthoArenas,othoniel.salazar@dsignstudio.com.mx,7af2d10b73ab7cd8f603937f7697cb5fe432c7ff,04/01/2020 10:37am
-MariV,mariana.vidal@cfe.mx,7af2d10b73ab7cd8f603937f7697cb5fe432c7ff,04/01/2020 10:49am
-Prueba,prueba@prueba.com,7af2d10b73ab7cd8f603937f7697cb5fe432c7ff,04/01/2020 11:03am
+04/01/2020 1:57pm El Archivo registros.txt se ha creado correctamente.
+admin,othosalazar@gmail.com,7af2d10b73ab7cd8f603937f7697cb5fe432c7ff,04/01/2020 2:08pm

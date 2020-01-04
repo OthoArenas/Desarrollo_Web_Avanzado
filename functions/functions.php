@@ -48,21 +48,12 @@ if (isset($_POST['login-submit'])) {
     }
     if (isset($errors)) {
 
-?>
-        <div class="alert alert-danger" role="alert">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>¡Error!</strong>
-            <?php
             /* Ciclo Foreach */
             foreach ($errors as $error) {
-                echo $error;
                 $warning .= $error;
             }
             $warning = sha1($warning);
             header("location:../index.php?warning=$warning"); 
-            ?>
-        </div>
-    <?php
     }
     
 }
@@ -131,38 +122,19 @@ if (isset($_POST['register-submit'])) {
         }
     }
     if (isset($errors)) {
-
-    ?>
-        <div class="alert alert-danger" role="alert">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>¡Error!</strong>
-            <?php
-                foreach ($errors as $error) {
-                    echo $error;
-                    $warning .= $error;
-                }
-                $warning = sha1($warning);
-                header("location:../index.php?warning=$warning"); 
-            ?>
-        </div>
-    <?php
+        foreach ($errors as $error) {
+            $warning .= $error;
+        }
+        $warning = sha1($warning);
+        header("Location: ../index.php?warning=$warning"); 
+            
     }
     if (isset($messages)) {
-
-    ?>
-        <div class="alert alert-success" role="alert">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>¡Bien hecho!</strong>
-            <?php
-            foreach ($messages as $message) {
-                echo $message;
-                $success .= $message;
-            }
-            $success = sha1($success);
-            header("location:../index.php?success=$success"); 
-            ?>
-        </div>
-<?php
+        foreach ($messages as $message) {
+            $success .= $message;
+        }
+        $success = sha1($success);
+        header("location:../index.php?success=$success"); 
     }
 }
 
