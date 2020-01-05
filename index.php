@@ -39,15 +39,15 @@ createFile();
                 <form class="form-login" action="functions/functions.php" method="post" name="login-form">
                     <h1 class="h3 font-weight-normal line-decorator mb-4 text-center" style="width: auto; color: #979898;">Iniciar Sesión</h1>
                     <label for="inputEmail" class="sr-only">Email address</label>
-                    <input type="text" id="inputEmail" class="form-control text-center rounded mb-3 mt-3" autofocus placeholder="Correo Electónico / Nombre de usuario" style="font-size: 12px;" name="email" required value="<?php echo $_GET['username'];?>">
+                    <input type="text" id="inputEmail" class="form-control text-center rounded mb-3 mt-3" autofocus placeholder="Correo Electónico / Nombre de usuario" style="font-size: 12px;" name="email" required value="<?php echo $_GET['username']; ?>">
                     <label for="inputPassword" class="sr-only">Password</label>
                     <input type="password" id="inputPassword" class="form-control text-center rounded mb-4" placeholder="Contraseña" style="font-size: 12px;" name="password" required>
                     <button class="btn btn-block btn-success text-uppercase mb-4 btn-lg" type="submit" style="background-color: #26a69a; font-size: 16px;" name="login-submit">Iniciar Sesión</button>
                 </form>
                 <hr />
-                <div class="row justify-content-center">
+                <div class="row justify-content-center mb-3">
                     <div class="col-12 text-center">
-                        <p style="font-size: 13px;">¿Aún no tienes cuenta?</p>
+                        <a style="font-size: 13px;" href="register.php">¿Aún no tienes cuenta?</a>
                     </div>
                 </div>
                 <div class="row justify-content-center">
@@ -81,13 +81,13 @@ createFile();
                                             <div class="col-12 text-center">
                                                 <label for="register-username" class="text-secondary">Nombre de Usuario</label>
                                             </div>
-                                            <input type="text" class="form-control mb-3 text-center" id="register-username" placeholder="Ingresa un nombre de usuario" style="font-size: 12px;" name="username" required>
+                                            <input type="text" class="form-control mb-3 text-center" id="register-username" placeholder="Ingresa un nombre de usuario" style="font-size: 12px;" name="username" value="<?php echo $_GET['username']; ?>" required>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <div class="col-12 text-center">
                                                 <label for="register-email" class="text-secondary">Correo Electrónico</label>
                                             </div>
-                                            <input type="email" class="form-control mb-3 text-center" id="register-email" placeholder="Ingresa tu correo electrónico" style="font-size: 12px;" name="email" required>
+                                            <input type="email" class="form-control mb-3 text-center" id="register-email" placeholder="Ingresa tu correo electrónico" style="font-size: 12px;" name="email" value="<?php echo $_GET['username']; ?>" required>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <div class="col-12 text-center">
