@@ -34,7 +34,7 @@ createFile();
                 ?>
             </div>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mt-5">
             <div class="col-md-4">
                 <form class="form-login" action="functions/functions.php" method="post" name="login-form">
                     <h1 class="h3 font-weight-normal line-decorator mb-4 text-center" style="width: auto; color: #979898;">Iniciar Sesión</h1>
@@ -58,8 +58,8 @@ createFile();
                 <div class="row justify-content-center">
                     <!-- Footer -->
                     <div class="col-12">
-                        <footer class="text-center" style="font-size: 12px;">
-                            <p class="mt-5 text-muted mb-1">© 2020&nbsp;Othoniel E. Salazar Arenas</p>
+                        <footer class="text-center mt-5" style="font-size: 12px;">
+                            <a class="mt-5 text-muted mb-1" href="https://github.com/OthoArenas/Desarrollo_Web_Avanzado/tree/master" target="_blank">© 2020&nbsp;Othoniel E. Salazar Arenas</a>
                             <p class="mt-1 mb-3 text-muted">Computación en el Servidor Web</p>
                         </footer>
                     </div>

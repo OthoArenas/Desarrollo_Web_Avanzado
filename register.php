@@ -66,6 +66,11 @@ include("functions/functions.php");
         <button type="submit" class="btn btn-primary modal-btn" style="background-color: #26a69a;" name="register-submit">Enviar</button>
     </div>
     </form>
+    <!-- Footer -->
+    <footer class="text-center mt-5" style="font-size: 12px;">
+        <a class="mt-5 text-muted mb-1" href="https://github.com/OthoArenas/Desarrollo_Web_Avanzado/tree/master" target="_blank">© 2020&nbsp;Othoniel E. Salazar Arenas</a>
+        <p class="mt-1 mb-3 text-muted">Computación en el Servidor Web</p>
+    </footer>
 </div>
 <!-- Script para acción de modales en pantalla -->
 <script>
