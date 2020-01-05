@@ -39,7 +39,7 @@ createFile();
                 <form class="form-login" action="functions/functions.php" method="post" name="login-form">
                     <h1 class="h3 font-weight-normal line-decorator mb-4 text-center" style="width: auto; color: #979898;">Iniciar Sesión</h1>
                     <label for="inputEmail" class="sr-only">Email address</label>
-                    <input type="text" id="inputEmail" class="form-control text-center rounded mb-3 mt-3" autofocus placeholder="Correo Electónico / Nombre de usuario" style="font-size: 12px;" name="email" required>
+                    <input type="text" id="inputEmail" class="form-control text-center rounded mb-3 mt-3" autofocus placeholder="Correo Electónico / Nombre de usuario" style="font-size: 12px;" name="email" required value="<?php echo $_GET['username'];?>">
                     <label for="inputPassword" class="sr-only">Password</label>
                     <input type="password" id="inputPassword" class="form-control text-center rounded mb-4" placeholder="Contraseña" style="font-size: 12px;" name="password" required>
                     <button class="btn btn-block btn-success text-uppercase mb-4 btn-lg" type="submit" style="background-color: #26a69a; font-size: 16px;" name="login-submit">Iniciar Sesión</button>

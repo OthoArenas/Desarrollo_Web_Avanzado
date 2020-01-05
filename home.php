@@ -1,10 +1,13 @@
 <?php
 session_start();
+include("functions/functions.php");
 
 if (empty($_SESSION['user_id'])) {
     header("location: index.php");
 } else {
     $username = $_SESSION['user_id'];
+    $email = $_SESSION['email'];
+    $created_at = $_SESSION['created_at'];
 }
 
 ?>
@@ -33,9 +36,19 @@ if (empty($_SESSION['user_id'])) {
 </div>
                         </div>
                         <div class="container">
-                            <h1 class="cover-heading text-center mb-5">Bienvenid@ <?php echo $username; ?></h1>
+                            <h1 class="cover-heading text-center">Bienvenid@ <?php echo $username; ?></h1>
+                            <hr>
+                            <h3 class="text-center mb-5">Datos de usuario</h3>
+                            <?php
+                            /* Ciclo For */
+                            $sessionData = sessionData();
+                                for ($i=0; $i < $j=count($sessionData)/2; $i++) { 
+                                    $k = $i+$j;
+                                    echo "<li>$sessionData[$k]$sessionData[$i]</li>";
+                                }
+                            ?>
                             <div class="row text-center justify-content-center">
-                                <form action="functions/functions.php" name="logout-form" method="post">
+                                <form action="functions/functions.php" class="mt-5" name="logout-form" method="post">
                                     <button class="btn btn-lg text-left btn-light logout-btn" type="submit" name="logout-btn">Cerrar Sesión</button>
                                 </form>
                             </div>

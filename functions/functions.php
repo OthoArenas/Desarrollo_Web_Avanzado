@@ -21,7 +21,8 @@ if (isset($_POST['login-submit'])) {
         $loop = 0;
         $archivo = fopen($fileName, "r");
         $count = 0;
-        while (!feof($archivo)) {
+        /* Ciclo do while */
+        do {
             $loop++;
             $line = fgets($archivo);
             $data[$loop] = explode(',', $line);
@@ -30,10 +31,14 @@ if (isset($_POST['login-submit'])) {
                 $count++;
             }
             /* Función de cadenas de texto sttcmp() para comparar dos strings */
-            $passCmp = strcmp($encriptedPassword,$data[$loop][2]);
-            if (($email == $data[$loop][0] && $passCmp==0) || ($email == $data[$loop][1] && $passCmp == 0)) {
+            $passCmp = strcmp($encriptedPassword, $data[$loop][2]);
+            if (($email == $data[$loop][0] && $passCmp == 0) || ($email == $data[$loop][1] && $passCmp == 0)) {
                 $username = $data[$loop][0];
+                $email = $data[$loop][1];
+                $created_at = $data[$loop][3];
                 $_SESSION['user_id'] = $username;
+                $_SESSION['email'] = $email;
+                $_SESSION['created_at'] = $created_at;
                 header("location: ../home.php");
             } else if ($count == 0) {
                 $errors[0] = 'El correo electrónico o nombre de usuario ingresados no se encuentran registrados. Por favor, diríjase a la Sección "Registrarse"';
@@ -44,7 +49,7 @@ if (isset($_POST['login-submit'])) {
                 $warning = sha1($errors[0]);
                 header("location:../index.php?warning=$warning");
             }
-        }
+        } while (!feof($archivo));
     }
     if (isset($errors)) {
 
@@ -53,7 +58,7 @@ if (isset($_POST['login-submit'])) {
                 $warning .= $error;
             }
             $warning = sha1($warning);
-            header("location:../index.php?warning=$warning"); 
+            header("location:../index.php?warning=$warning&username=$email"); 
     }
     
 }
@@ -100,6 +105,7 @@ if (isset($_POST['register-submit'])) {
         $fileName = "../registros.txt";
         $loop = 0;
         $archivo = fopen($fileName, "r");
+        /* Ciclo while */
         while (!feof($archivo)) {
             $loop++;
             $line = fgets($archivo);
@@ -126,7 +132,9 @@ if (isset($_POST['register-submit'])) {
             $warning .= $error;
         }
         $warning = sha1($warning);
-        header("Location: ../register.php?warning=$warning"); 
+        $username = $_POST["username"];
+        $email = $_POST["email"];
+        header("Location: ../register.php?warning=$warning&username=$username&email=$email"); 
             
     }
     if (isset($messages)) {
@@ -134,7 +142,8 @@ if (isset($_POST['register-submit'])) {
             $success .= $message;
         }
         $success = sha1($success);
-        header("location:../index.php?success=$success"); 
+        $username = $_POST["username"];
+        header("location:../index.php?success=$success&username=$username"); 
     }
 }
 
@@ -162,17 +171,24 @@ function createFile(){
 
 /* Función para alertar al usuario sobre validaciones y éxito en el registro */
 function textAlert(){
-    if (isset($_GET['warning']) && $_GET['warning'] == "3d5f4deab95d598c8a2fc23e7ee72d5b8bac451a") {
-        echo '<div class="mb-4 bg-warning text-light rounded-lg p-3 " style="font-size: 14px;
+    /* Estructura switch */
+    switch ($_GET['warning']) {
+        case '3d5f4deab95d598c8a2fc23e7ee72d5b8bac451a':
+            echo '<div class="mb-4 bg-warning text-light rounded-lg p-3 " style="font-size: 14px;
                     "><strong>¡Advertencia!</strong> El correo electrónico o nombre de usuario ingresados no se encuentran registrados. Por favor, diríjase a la Sección "Registrarse"</div>';
-    } else if (isset($_GET['warning']) && $_GET['warning'] == "9d3ffa0001e5244e6ae0c1fb92adb020d7e0da38") {
-        echo '<div class="mb-4 bg-danger text-light rounded-lg p-3 " style="font-size: 14px;
+            break;
+        case '9d3ffa0001e5244e6ae0c1fb92adb020d7e0da38':
+            echo '<div class="mb-4 bg-danger text-light rounded-lg p-3 " style="font-size: 14px;
                     "><strong>¡Error!</strong> Correo Electrónico / Contraseña inválidos. Intente nuevamente.</div>';
-    } else if (isset($_GET['warning']) && $_GET['warning'] == "b165432c2ac41d7cc14b81c42370a889e0f4dace") {
-        echo '<div class="mb-4 bg-danger text-light rounded-lg p-3 " style="font-size: 14px;"><strong>¡Error!</strong> Favor de verificar que se cumplan los siguientes campos:<li>Las contraseñas no coinciden</li></div>';
-    } else if (isset($_GET['warning']) && $_GET['warning'] == "dfbda2363956ab6169ca1df5374c076b03a80c66") {
-        echo '<div class="mb-4 bg-danger text-light rounded-lg p-3 " style="font-size: 14px;"><strong>¡Error!</strong><li>El nombre de usuario o correo electrónico ingresados, ya se encuentra registrado.</li></div>';
-    } else if (
+            break;
+        case 'b165432c2ac41d7cc14b81c42370a889e0f4dace':
+            echo '<div class="mb-4 bg-danger text-light rounded-lg p-3 " style="font-size: 14px;"><strong>¡Error!</strong> Favor de verificar que se cumplan los siguientes campos:<li>Las contraseñas no coinciden</li></div>';
+            break;
+        case 'dfbda2363956ab6169ca1df5374c076b03a80c66':
+            echo '<div class="mb-4 bg-danger text-light rounded-lg p-3 " style="font-size: 14px;"><strong>¡Error!</strong><li>El nombre de usuario o correo electrónico ingresados, ya se encuentra registrado.</li></div>';
+            break;
+    }
+    if (
         isset($_GET['warning']) && $_GET['warning'] == "69232514f27a8cb3ac9928d84ea06b375e641846" || $_GET['warning'] == "95347e1a2095a019de52b313f686422f443af8ba" || $_GET['warning'] == "82d025de0b64e0f52d602d48df4821b6b6b11042" || $_GET['warning'] == "e0ae0f981eb11bb38c73042780f53797a7f854aa" || $_GET['warning'] == "75f9954faccb3488a02c36a7cbdfb5c11a2c631b"
     ) {
         echo '<div class="mb-4 bg-danger text-light rounded-lg p-3 " style="font-size: 14px;"><strong>¡Error!</strong><li>El password debe tener al menos 6 caracteres.</li><li>El password no puede tener más de 16 caracteres.</li><li>El password debe tener al menos una letra minúscula.</li><li>El password debe tener al menos una letra mayúscula.</li><li>El password debe tener al menos un número.</li></div>';
@@ -180,5 +196,16 @@ function textAlert(){
         echo '<div class="mb-4 bg-success text-light rounded-lg p-3 " style="font-size: 14px;
                     "><strong>¡Bien hecho!</strong> El usuario ha sido registrado exitosamente. Ya puede iniciar sesión.</div>';
     }
+}
+
+function sessionData(){
+    $sessionData[0] = $_SESSION['user_id'];
+    $sessionData[1] = $_SESSION['email'];
+    $sessionData[2] = $_SESSION['created_at'];
+    $sessionData[3] = "Nombre de usuario: ";
+    $sessionData[4] = "Email: ";
+    $sessionData[5] = "Fecha de registro: ";
+
+    return $sessionData;
 }
 ?>

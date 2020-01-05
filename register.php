@@ -38,15 +38,15 @@ include("functions/functions.php");
                         <div class="col-12 text-center">
                             <label for="register-username" class="text-secondary">Nombre de Usuario</label>
                         </div>
-                        <input type="text" class="form-control mb-3 text-center" id="register-username" placeholder="Ingresa un nombre de usuario" style="font-size: 12px;" name="username" required>
+                        <input type="text" class="form-control mb-3 text-center" id="register-username" placeholder="Ingresa un nombre de usuario" style="font-size: 12px;" name="username" required value="<?php echo $_GET['username']; ?>">
                     </div>
-                    <div class="col-12 col-md-6">
+                    <div class=" col-12 col-md-6">
                         <div class="col-12 text-center">
                             <label for="register-email" class="text-secondary">Correo Electrónico</label>
                         </div>
-                        <input type="email" class="form-control mb-3 text-center" id="register-email" placeholder="Ingresa tu correo electrónico" style="font-size: 12px;" name="email" required>
+                        <input type="email" class="form-control mb-3 text-center" id="register-email" placeholder="Ingresa tu correo electrónico" style="font-size: 12px;" name="email" required value="<?php echo $_GET['email']; ?>">
                     </div>
-                    <div class="col-12 col-md-6">
+                    <div class=" col-12 col-md-6">
                         <div class="col-12 text-center">
                             <label for="register-password" class="text-secondary">Contraseña</label>
                         </div>
@@ -62,7 +62,7 @@ include("functions/functions.php");
             </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-default btn-light btn-cancel" data-dismiss="modal">Cancelar</button>
+        <a type="button" class="btn btn-default btn-light btn-cancel" data-dismiss="modal" href="index.php">Cancelar</a>
         <button type="submit" class="btn btn-primary modal-btn" style="background-color: #26a69a;" name="register-submit">Enviar</button>
     </div>
     </form>
